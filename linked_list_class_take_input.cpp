@@ -14,31 +14,34 @@ class node{
 
 };
 
-/*node* takeinput() //o(n2) time
-{
-	int data;
-	cin>>data;
-	node *head=NULL;
-	while(data!=-1)
-	{
-	       node *newnode=new node(data);
-		   if(head==NULL)
-		   {
-		   	head=newnode;
-		   }	
-	       else
-		   {
-			   	node *temp=head;
-			   	while(temp->next!=NULL)
-		   	{
-			   		temp=temp->next;
-		      }
-		      temp->next=newnode;
-			   }
-			   cin>>data;
+ int count(node *head)
+ {
+ 	int count=0;
+ 	while(head!=NULL)
+ 	{
+ 	count++	;
+ 	head=head->next;
+	 }
+	 cout<<endl<<"Total number of node are : "<<count<<endl;
+ }
+ int ithnode(node *head)
+ {
+ 	int index,c=0;
+ 	cout<<"Enter the index of node : ";
+ 	cin>>index;
+ 	if(index<0)
+ 	{
+ 		exit(0);
+	 }
+    if(head==NULL)
+    cout<<"No node present "<<endl;
+    while(c!=index)
+    {
+    head=head->next;
+	c++;	
 	}
-	return head;
-}*/
+   cout<<"data at ith node is "<<head->data<<endl; 
+ }
 void print(node *head)
 {
    while(head!=NULL)
@@ -71,9 +74,48 @@ node* takeinput_better()// o(n) time
 	}
 	return head;
 }
+
+ node* insertithnode(node *head,int i,int data)
+{
+	node *newnode=new node(data);
+	int count=0;
+	node *temp=head;
+	if(i==0)
+	{
+		newnode->next=head;
+		head=newnode;
+		return head;
+	}
+	
+	while(temp!=NULL&& count<i-1)
+	{
+		temp=temp->next;
+		count++;
+	}
+	if(temp!=NULL)
+	{
+		node *a=temp->next;
+		temp->next=newnode;
+		newnode=a;
+	}
+	return head;
+}
 int main()
 {
+		int countvalue;
 //	node *head=takeinput();
     node *head=takeinput_better();
 	print(head);
+	
+	count(head);
+	
+	ithnode(head);
+	
+	int i, data;
+	cin >> i >> data;
+	
+head=insertithnode(head ,i,data);
+	
+	print(head);	
+
 }
